@@ -3,3 +3,7 @@
 ## 8 de Marzo
 
 Empece a diseñar el perfil de usuario, agregando los componentes base que luego voy a utilizar para el funcionamiento del mismo
+
+## 15 de Marzo
+
+Empezando a diseñar las ventanas de editar perfil y feed principal. Además de añadir las clases de usuario y post y de empezar a crear el funcionamiento del backend
