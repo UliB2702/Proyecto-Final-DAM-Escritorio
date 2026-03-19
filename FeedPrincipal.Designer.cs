@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FeedPrincipal));
             this.pnlPosts = new System.Windows.Forms.Panel();
             this.pbFotoPerfil = new System.Windows.Forms.PictureBox();
             this.lblUsuario = new System.Windows.Forms.Label();
+            this.lblIniciarSesion = new System.Windows.Forms.Label();
+            this.lblCrearCuenta = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbFotoPerfil)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,17 +65,45 @@
             this.lblUsuario.TabIndex = 3;
             this.lblUsuario.Text = "label2";
             // 
+            // lblIniciarSesion
+            // 
+            this.lblIniciarSesion.AutoSize = true;
+            this.lblIniciarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIniciarSesion.Location = new System.Drawing.Point(584, 9);
+            this.lblIniciarSesion.Name = "lblIniciarSesion";
+            this.lblIniciarSesion.Size = new System.Drawing.Size(101, 16);
+            this.lblIniciarSesion.TabIndex = 4;
+            this.lblIniciarSesion.Text = "Iniciar Sesión";
+            this.lblIniciarSesion.MouseEnter += new System.EventHandler(this.lbl_MouseEnter);
+            this.lblIniciarSesion.MouseLeave += new System.EventHandler(this.lbl_MouseLeave);
+            // 
+            // lblCrearCuenta
+            // 
+            this.lblCrearCuenta.AutoSize = true;
+            this.lblCrearCuenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCrearCuenta.Location = new System.Drawing.Point(691, 9);
+            this.lblCrearCuenta.Name = "lblCrearCuenta";
+            this.lblCrearCuenta.Size = new System.Drawing.Size(97, 16);
+            this.lblCrearCuenta.TabIndex = 5;
+            this.lblCrearCuenta.Text = "Crear Cuenta";
+            this.lblCrearCuenta.MouseEnter += new System.EventHandler(this.lbl_MouseEnter);
+            this.lblCrearCuenta.MouseLeave += new System.EventHandler(this.lbl_MouseLeave);
+            // 
             // FeedPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblCrearCuenta);
+            this.Controls.Add(this.lblIniciarSesion);
             this.Controls.Add(this.lblUsuario);
             this.Controls.Add(this.pbFotoPerfil);
             this.Controls.Add(this.pnlPosts);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FeedPrincipal";
-            this.Text = "FeedPrincipal";
+            this.Text = "Placegiver";
+            this.Load += new System.EventHandler(this.FeedPrincipal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbFotoPerfil)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -84,5 +115,7 @@
         private System.Windows.Forms.Panel pnlPosts;
         private System.Windows.Forms.PictureBox pbFotoPerfil;
         private System.Windows.Forms.Label lblUsuario;
+        private System.Windows.Forms.Label lblIniciarSesion;
+        private System.Windows.Forms.Label lblCrearCuenta;
     }
 }

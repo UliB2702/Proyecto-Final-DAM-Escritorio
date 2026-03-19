@@ -16,7 +16,7 @@ namespace DisenoEscritorio
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Perfil());
+            Application.Run(new FeedPrincipal());
         }
     }
 }

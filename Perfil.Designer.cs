@@ -44,7 +44,7 @@
             // 
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.Location = new System.Drawing.Point(373, 144);
+            this.lblNombre.Location = new System.Drawing.Point(375, 142);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(70, 25);
             this.lblNombre.TabIndex = 1;
@@ -113,6 +113,7 @@
             this.btnEditar.Size = new System.Drawing.Size(28, 23);
             this.btnEditar.TabIndex = 7;
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // pbFotoPerfil
             // 
