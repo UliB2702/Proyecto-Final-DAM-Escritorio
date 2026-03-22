@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Perfil));
-            this.lblNombre = new System.Windows.Forms.Label();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.btnSeguir = new System.Windows.Forms.Button();
             this.pnlPosts = new System.Windows.Forms.Panel();
@@ -37,28 +36,17 @@
             this.lblSeguidos = new System.Windows.Forms.Label();
             this.btnEditar = new System.Windows.Forms.Button();
             this.pbFotoPerfil = new System.Windows.Forms.PictureBox();
+            this.lblNombre = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbFotoPerfil)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblNombre
-            // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.Location = new System.Drawing.Point(375, 142);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(70, 25);
-            this.lblNombre.TabIndex = 1;
-            this.lblNombre.Text = "label1";
-            this.lblNombre.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // lblDescripcion
             // 
-            this.lblDescripcion.AutoSize = true;
             this.lblDescripcion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(207)))), ((int)(((byte)(153)))));
-            this.lblDescripcion.Location = new System.Drawing.Point(178, 191);
+            this.lblDescripcion.Location = new System.Drawing.Point(170, 175);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Padding = new System.Windows.Forms.Padding(8);
-            this.lblDescripcion.Size = new System.Drawing.Size(473, 29);
+            this.lblDescripcion.Size = new System.Drawing.Size(473, 53);
             this.lblDescripcion.TabIndex = 2;
             this.lblDescripcion.Text = "sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" +
     "sssssssss";
@@ -79,15 +67,15 @@
             // pnlPosts
             // 
             this.pnlPosts.AutoScroll = true;
-            this.pnlPosts.Location = new System.Drawing.Point(173, 273);
+            this.pnlPosts.Location = new System.Drawing.Point(173, 293);
             this.pnlPosts.Name = "pnlPosts";
-            this.pnlPosts.Size = new System.Drawing.Size(470, 435);
+            this.pnlPosts.Size = new System.Drawing.Size(470, 415);
             this.pnlPosts.TabIndex = 4;
             // 
             // lblSeguidores
             // 
             this.lblSeguidores.AutoSize = true;
-            this.lblSeguidores.Location = new System.Drawing.Point(288, 257);
+            this.lblSeguidores.Location = new System.Drawing.Point(305, 257);
             this.lblSeguidores.Name = "lblSeguidores";
             this.lblSeguidores.Size = new System.Drawing.Size(72, 13);
             this.lblSeguidores.TabIndex = 5;
@@ -96,7 +84,7 @@
             // lblSeguidos
             // 
             this.lblSeguidos.AutoSize = true;
-            this.lblSeguidos.Location = new System.Drawing.Point(452, 257);
+            this.lblSeguidos.Location = new System.Drawing.Point(442, 257);
             this.lblSeguidos.Name = "lblSeguidos";
             this.lblSeguidos.Size = new System.Drawing.Size(63, 13);
             this.lblSeguidos.TabIndex = 6;
@@ -123,6 +111,16 @@
             this.pbFotoPerfil.Size = new System.Drawing.Size(100, 101);
             this.pbFotoPerfil.TabIndex = 0;
             this.pbFotoPerfil.TabStop = false;
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.Location = new System.Drawing.Point(290, 142);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(249, 25);
+            this.lblNombre.TabIndex = 1;
+            this.lblNombre.Text = "label1";
+            this.lblNombre.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Perfil
             // 
@@ -152,13 +150,13 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pbFotoPerfil;
-        private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblDescripcion;
         private System.Windows.Forms.Button btnSeguir;
         private System.Windows.Forms.Panel pnlPosts;
         private System.Windows.Forms.Label lblSeguidores;
         private System.Windows.Forms.Label lblSeguidos;
         private System.Windows.Forms.Button btnEditar;
+        private System.Windows.Forms.Label lblNombre;
     }
 }
 

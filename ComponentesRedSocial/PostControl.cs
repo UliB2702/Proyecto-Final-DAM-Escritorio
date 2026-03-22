@@ -19,6 +19,7 @@ namespace ComponentesRedSocial
 
         private int idPost;
         private int idCategoria;
+        private bool perteneceAUsuario = true;
 
         public PostControl()
         {
@@ -54,6 +55,8 @@ namespace ComponentesRedSocial
             }
         }
 
+        
+
         [Category("Mis propiedades")]
         [Description("El texto que viene en la publicación")]
         public string Texto
@@ -81,6 +84,29 @@ namespace ComponentesRedSocial
                 return this.lblUsuario.Text;
             }
         }
+
+        [Category("Mis propiedades")]
+        [Description("Determina si el control le pertenece al usuario actual o no")]
+        public bool PerteneceAUsuario
+        {
+            set
+            {
+                this.perteneceAUsuario = value;
+                if (this.perteneceAUsuario) {
+                    this.btnBorrar.Visible = true;
+                }
+                else
+                {
+                    this.btnBorrar.Visible = false;
+                }
+            }
+            get
+            {
+                return this.perteneceAUsuario;
+            }
+        }
+
+
 
         [Category("Mis eventos")]
         [Description("Se acriva cuando se preciona el boton de borrar")]

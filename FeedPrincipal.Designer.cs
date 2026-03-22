@@ -64,6 +64,9 @@
             this.lblUsuario.Size = new System.Drawing.Size(50, 16);
             this.lblUsuario.TabIndex = 3;
             this.lblUsuario.Text = "label2";
+            this.lblUsuario.Click += new System.EventHandler(this.lblUsuario_Click);
+            this.lblUsuario.MouseEnter += new System.EventHandler(this.lbl_MouseEnter);
+            this.lblUsuario.MouseLeave += new System.EventHandler(this.lbl_MouseLeave);
             // 
             // lblIniciarSesion
             // 
@@ -74,6 +77,7 @@
             this.lblIniciarSesion.Size = new System.Drawing.Size(101, 16);
             this.lblIniciarSesion.TabIndex = 4;
             this.lblIniciarSesion.Text = "Iniciar Sesión";
+            this.lblIniciarSesion.Click += new System.EventHandler(this.lblIniciarSesion_Click);
             this.lblIniciarSesion.MouseEnter += new System.EventHandler(this.lbl_MouseEnter);
             this.lblIniciarSesion.MouseLeave += new System.EventHandler(this.lbl_MouseLeave);
             // 
@@ -86,6 +90,7 @@
             this.lblCrearCuenta.Size = new System.Drawing.Size(97, 16);
             this.lblCrearCuenta.TabIndex = 5;
             this.lblCrearCuenta.Text = "Crear Cuenta";
+            this.lblCrearCuenta.Click += new System.EventHandler(this.lblCrearCuenta_Click);
             this.lblCrearCuenta.MouseEnter += new System.EventHandler(this.lbl_MouseEnter);
             this.lblCrearCuenta.MouseLeave += new System.EventHandler(this.lbl_MouseLeave);
             // 

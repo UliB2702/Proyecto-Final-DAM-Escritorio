@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CrearCuenta));
             this.lblCrearCuenta = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
@@ -37,7 +38,8 @@
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtConfirmPassword = new System.Windows.Forms.TextBox();
+            this.lblError = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblCrearCuenta
@@ -61,6 +63,7 @@
             // 
             // txtNombre
             // 
+            this.txtNombre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(207)))), ((int)(((byte)(153)))));
             this.txtNombre.Location = new System.Drawing.Point(103, 126);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(367, 20);
@@ -77,6 +80,7 @@
             // 
             // txtPassword
             // 
+            this.txtPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(207)))), ((int)(((byte)(153)))));
             this.txtPassword.Location = new System.Drawing.Point(103, 231);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
@@ -95,9 +99,11 @@
             this.btnEnviar.TabIndex = 11;
             this.btnEnviar.Text = "Enviar";
             this.btnEnviar.UseVisualStyleBackColor = false;
+            this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
             // 
             // txtEmail
             // 
+            this.txtEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(207)))), ((int)(((byte)(153)))));
             this.txtEmail.Location = new System.Drawing.Point(103, 175);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(367, 20);
@@ -121,14 +127,25 @@
             this.label4.TabIndex = 14;
             this.label4.Text = "Nueva contraseña:";
             // 
-            // textBox1
+            // txtConfirmPassword
             // 
-            this.textBox1.Location = new System.Drawing.Point(103, 279);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(367, 20);
-            this.textBox1.TabIndex = 15;
-            this.textBox1.UseSystemPasswordChar = true;
+            this.txtConfirmPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(207)))), ((int)(((byte)(153)))));
+            this.txtConfirmPassword.Location = new System.Drawing.Point(103, 279);
+            this.txtConfirmPassword.Name = "txtConfirmPassword";
+            this.txtConfirmPassword.PasswordChar = '*';
+            this.txtConfirmPassword.Size = new System.Drawing.Size(367, 20);
+            this.txtConfirmPassword.TabIndex = 15;
+            this.txtConfirmPassword.UseSystemPasswordChar = true;
+            // 
+            // lblError
+            // 
+            this.lblError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblError.ForeColor = System.Drawing.Color.Red;
+            this.lblError.Location = new System.Drawing.Point(103, 303);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(367, 38);
+            this.lblError.TabIndex = 16;
+            this.lblError.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // CrearCuenta
             // 
@@ -136,7 +153,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
             this.ClientSize = new System.Drawing.Size(607, 413);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lblError);
+            this.Controls.Add(this.txtConfirmPassword);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtEmail);
@@ -146,8 +164,9 @@
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblCrearCuenta);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CrearCuenta";
-            this.Text = "CrearCuenta";
+            this.Text = "Crear Cuenta";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,6 +183,7 @@
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtConfirmPassword;
+        private System.Windows.Forms.Label lblError;
     }
 }

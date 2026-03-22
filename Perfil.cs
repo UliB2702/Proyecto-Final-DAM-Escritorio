@@ -29,7 +29,7 @@ namespace DisenoEscritorio
             string json = "";
             try
             {
-                json = File.ReadAllText("Resources/log.json");
+                json = File.ReadAllText("../../Resources/log.json");
                 usuarioLogeado = JsonSerializer.Deserialize<Usuario>(json, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
@@ -43,12 +43,12 @@ namespace DisenoEscritorio
 
         }
 
-        private async Task<List<Post>> PostDeUsuario()
+        private async Task<List<Post>> PostsDeUsuario()
         {
             try
             {
                 List<Post> posts;
-                string url = "http://10.0.2.2:8080/apirest_placegiver/rest/posts/"+nombreUsuarioActual;
+                string url = "http://localhost:8080/apirest_placegiver/rest/posts/"+nombreUsuarioActual;
                 HttpResponseMessage response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
 
@@ -70,7 +70,7 @@ namespace DisenoEscritorio
         private async Task<Usuario> CargarPerfil()
         {
             Usuario u;
-            string url = "http://10.0.2.2:8080/apirest_placegiver/rest/usuarios?nombre=" + nombreUsuarioActual;
+            string url = "http://localhost:8080/apirest_placegiver/rest/usuarios?nombre=" + nombreUsuarioActual;
             HttpResponseMessage response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
@@ -87,20 +87,13 @@ namespace DisenoEscritorio
             usuarioActual = await CargarPerfil();
             lblNombre.Text = usuarioActual.Nombre;
             lblDescripcion.Text = usuarioActual.Descripcion;
-
-
-            List<Post> posts = await PostDeUsuario();
-            int y = 0;
-            foreach (Post post in posts) { 
-                PostControl pc = new PostControl();
-                pc.Texto = post.Texto;
-                pc.Usuario = post.Usuario;
-                pc.IdPost = post.Id;
-                pc.IdCategoria = post.IdCategoria;
-                pc.Location = new Point(0, y);
-                pnlPosts.Controls.Add(pc);
-                y += pc.Height + 10;
+            if(lblDescripcion.Text == "")
+            {
+                lblDescripcion.Visible = false;
             }
+
+            CargarPosts();
+            
 
             if (usuarioActual.Nombre == usuarioLogeado.Nombre)
             {
@@ -113,9 +106,28 @@ namespace DisenoEscritorio
             }
         }
 
+        private async void CargarPosts()
+        {
+            this.pnlPosts.Controls.Clear();
+            List<Post> posts = await PostsDeUsuario();
+            int y = 0;
+            foreach (Post post in posts)
+            {
+                PostControl pc = new PostControl();
+                pc.PerteneceAUsuario = post.Usuario == usuarioLogeado.Nombre;
+                pc.Texto = post.Texto;
+                pc.Usuario = post.Usuario;
+                pc.IdPost = post.Id;
+                pc.IdCategoria = post.IdCategoria;
+                pc.Location = new Point(0, y);
+                pnlPosts.Controls.Add(pc);
+                y += pc.Height + 10;
+            }
+        }
+
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            EditarPerfil ep = new EditarPerfil();
+            EditarPerfil ep = new EditarPerfil(usuarioActual);
             DialogResult dr = ep.ShowDialog();
             if (dr == DialogResult.OK) { 
                  

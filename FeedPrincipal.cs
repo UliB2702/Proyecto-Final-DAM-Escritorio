@@ -22,38 +22,51 @@ namespace DisenoEscritorio
         {
             InitializeComponent();
             client = new HttpClient();
-            string json = "";
-            try
+        }
+
+
+        private async void FeedPrincipal_Load(object sender, EventArgs e)
+        {
+            CargarSesion();
+            CargarPosts();
+        }
+
+        private async void CargarPosts()
+        {
+            this.pnlPosts.Controls.Clear();
+            List<Post> posts = await PostsFeed();
+            int y = 0;
+            foreach (Post post in posts)
             {
-                json = File.ReadAllText("Resources/log.json");
-                usuarioLogeado = JsonSerializer.Deserialize<Usuario>(json, new JsonSerializerOptions
+                PostControl pc = new PostControl();
+                pc.Texto = post.Texto;
+                if (post.Usuario == usuarioLogeado.Nombre)
                 {
-                    PropertyNameCaseInsensitive = true
-                });
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                usuarioLogeado = new Usuario();
-            }
-            
-            if (usuarioLogeado.Nombre == null || usuarioLogeado.Nombre == "")
-            {
-                this.pbFotoPerfil.Visible = false;
-                this.lblUsuario.Visible = false;
-                this.lblIniciarSesion.Visible = true;
-                this.lblCrearCuenta.Visible = true;
-            }
-            else
-            {
-                this.pbFotoPerfil.Visible = true;
-                this.lblUsuario.Visible = true;
-                this.lblIniciarSesion.Visible = false;
-                this.lblCrearCuenta.Visible = false;
+                    pc.PerteneceAUsuario = true;
+                }
+                else
+                {
+                    pc.PerteneceAUsuario = false;
+                }
+                pc.Usuario = post.Usuario;
+                pc.ClickPerfil += IrAPerfil;
+                pc.IdPost = post.Id;
+                pc.IdCategoria = post.IdCategoria;
+                pc.Location = new Point(0, y);
+                pnlPosts.Controls.Add(pc);
+                y += pc.Height + 10;
             }
         }
 
-        private async Task<List<Post>> PostFeed()
+        private void IrAPerfil(object sender, EventArgs e)
+        {
+            PostControl p = (PostControl)(sender);
+            Perfil perfil = new Perfil(p.Usuario);
+            DialogResult dr = perfil.ShowDialog();
+        }
+
+
+        private async Task<List<Post>> PostsFeed()
         {
             try
             {
@@ -78,22 +91,40 @@ namespace DisenoEscritorio
             }
         }
 
-        private async void FeedPrincipal_Load(object sender, EventArgs e)
+        private void CargarSesion()
         {
-            List<Post> posts = await PostFeed();
-            int y = 0;
-            foreach (Post post in posts) {
-                PostControl pc = new PostControl();
-                pc.Texto = post.Texto;
-                pc.Usuario = post.Usuario;
-                pc.IdPost = post.Id;
-                pc.IdCategoria = post.IdCategoria;
-                pc.Location = new Point(0, y);
-                pnlPosts.Controls.Add(pc);
-                y += pc.Height + 10;
+            string json = "";
+            try
+            {
+                json = File.ReadAllText("../../Resources/log.json");
+                usuarioLogeado = JsonSerializer.Deserialize<Usuario>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                usuarioLogeado = new Usuario();
+            }
+            if (usuarioLogeado.Nombre == null || usuarioLogeado.Nombre == "")
+            {
+                this.pbFotoPerfil.Visible = false;
+                this.lblUsuario.Visible = false;
+                this.lblIniciarSesion.Visible = true;
+                this.lblCrearCuenta.Visible = true;
+            }
+            else
+            {
+                this.pbFotoPerfil.Visible = true;
+                this.lblUsuario.Visible = true;
+                this.lblUsuario.Text = usuarioLogeado.Nombre;
+                this.lblIniciarSesion.Visible = false;
+                this.lblCrearCuenta.Visible = false;
             }
         }
 
+        
         private void lbl_MouseEnter(object sender, EventArgs e)
         {
             Label lbl = (Label)sender;
@@ -104,6 +135,32 @@ namespace DisenoEscritorio
         {
             Label lbl = (Label)sender;
             lbl.ForeColor = Color.Black;
+        }
+
+        private void lblIniciarSesion_Click(object sender, EventArgs e)
+        {
+            IniciarSesion iniciarSesion = new IniciarSesion();
+            DialogResult dr = iniciarSesion.ShowDialog();
+            if (dr == DialogResult.OK) {
+                CargarPosts();
+                CargarSesion();
+            }
+
+        }
+
+        private void lblCrearCuenta_Click(object sender, EventArgs e)
+        {
+            CrearCuenta cc = new CrearCuenta();
+            DialogResult dr = cc.ShowDialog();
+            if (dr == DialogResult.OK) { 
+                
+            }
+        }
+
+        private void lblUsuario_Click(object sender, EventArgs e)
+        {
+            Perfil p = new Perfil(usuarioLogeado.Nombre);
+            DialogResult dr = p.ShowDialog();
         }
     }
 }

@@ -35,13 +35,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnEnviar = new System.Windows.Forms.Button();
+            this.lblError = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblIniciarSesion
             // 
             this.lblIniciarSesion.AutoSize = true;
             this.lblIniciarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIniciarSesion.Location = new System.Drawing.Point(218, 51);
+            this.lblIniciarSesion.Location = new System.Drawing.Point(208, 47);
             this.lblIniciarSesion.Name = "lblIniciarSesion";
             this.lblIniciarSesion.Size = new System.Drawing.Size(172, 29);
             this.lblIniciarSesion.TabIndex = 5;
@@ -58,6 +59,7 @@
             // 
             // txtNombre
             // 
+            this.txtNombre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(207)))), ((int)(((byte)(153)))));
             this.txtNombre.Location = new System.Drawing.Point(110, 143);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(367, 20);
@@ -74,6 +76,7 @@
             // 
             // txtPassword
             // 
+            this.txtPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(207)))), ((int)(((byte)(153)))));
             this.txtPassword.Location = new System.Drawing.Point(110, 216);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
@@ -86,12 +89,23 @@
             this.btnEnviar.BackColor = System.Drawing.Color.Blue;
             this.btnEnviar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEnviar.ForeColor = System.Drawing.Color.White;
-            this.btnEnviar.Location = new System.Drawing.Point(267, 293);
+            this.btnEnviar.Location = new System.Drawing.Point(255, 306);
             this.btnEnviar.Name = "btnEnviar";
             this.btnEnviar.Size = new System.Drawing.Size(75, 23);
             this.btnEnviar.TabIndex = 10;
             this.btnEnviar.Text = "Enviar";
             this.btnEnviar.UseVisualStyleBackColor = false;
+            this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
+            // 
+            // lblError
+            // 
+            this.lblError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblError.ForeColor = System.Drawing.Color.Red;
+            this.lblError.Location = new System.Drawing.Point(110, 252);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(367, 38);
+            this.lblError.TabIndex = 11;
+            this.lblError.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // IniciarSesion
             // 
@@ -99,6 +113,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
             this.ClientSize = new System.Drawing.Size(607, 371);
+            this.Controls.Add(this.lblError);
             this.Controls.Add(this.btnEnviar);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label2);
@@ -121,5 +136,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnEnviar;
+        private System.Windows.Forms.Label lblError;
     }
 }

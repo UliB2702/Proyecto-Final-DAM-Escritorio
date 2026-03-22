@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DisenoEscritorio
 {
-    internal class Usuario
+    public class Usuario
     {
         private string nombre;
         private string descripcion;

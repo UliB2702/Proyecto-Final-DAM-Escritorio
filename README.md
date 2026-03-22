@@ -11,3 +11,7 @@ Empezando a diseñar las ventanas de editar perfil y feed principal. Además de 
 ## 19 de Marzo
 
 Cree las ventanas de inicio sesion y crear cuenta. Además que ya inicie la conexión con la API, llegando a que, de momento, sea funcional.
+
+## 22 de Marzo
+
+Avance con el funcionamiento de login, ahora podiendo mantener un logueo guardando los datos en un archivo que se carga al iniciar la app. Además de cargar los perfiles cuando ser pulsa el perfil de un usuario. Además, según el usuario logueado, permitan aparecen ciertos botones o no, como los de borrar un post, editar perfil, iniciar sesion y crear cuenta, entre otros
