@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -99,10 +100,14 @@ namespace DisenoEscritorio
             {
                 this.btnEditar.Visible = true;
                 this.btnSeguir.Visible = false;
+                this.txtPublicar.Visible = true;
+                this.btnPublicar.Visible = true;
             }
             else {
                 this.btnEditar.Visible = false;
                 this.btnSeguir.Visible = true;
+                this.txtPublicar.Visible = false;
+                this.btnPublicar.Visible = false;
             }
         }
 
@@ -134,6 +139,52 @@ namespace DisenoEscritorio
 
             }
         }
-        
+
+        private async void btnPublicar_Click(object sender, EventArgs e)
+        {
+            if(txtPublicar.Text != "")
+            {
+                Post p = new Post();
+                p.Usuario = usuarioLogeado.Nombre;
+                p.Texto = this.txtPublicar.Text;
+                Postear(p);
+                CargarPosts();
+            }
+            else
+            {
+                txtPublicar.Focus(); 
+            }
+        }
+
+        private async void Postear(Post p)
+        {
+            try
+            {
+                string url = "http://localhost:8080/apirest_placegiver/rest/posts/publicar";
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                string json = JsonSerializer.Serialize(p);
+                using (HttpClient client = new HttpClient())
+                {
+                    StringContent contenido = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    try
+                    {
+                        var respuesta = await client.PostAsync(url, contenido);
+                        var resultado = await respuesta.Content.ReadAsStringAsync();
+
+                    }
+                    catch (Exception ex2)
+                    {
+                        Console.WriteLine(ex2.Message);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
+            
+        }
     }
 }

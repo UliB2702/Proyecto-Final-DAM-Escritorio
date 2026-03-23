@@ -34,6 +34,7 @@
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblIniciarSesion = new System.Windows.Forms.Label();
             this.lblCrearCuenta = new System.Windows.Forms.Label();
+            this.lblCerrarSesion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbFotoPerfil)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,12 +95,26 @@
             this.lblCrearCuenta.MouseEnter += new System.EventHandler(this.lbl_MouseEnter);
             this.lblCrearCuenta.MouseLeave += new System.EventHandler(this.lbl_MouseLeave);
             // 
+            // lblCerrarSesion
+            // 
+            this.lblCerrarSesion.AutoSize = true;
+            this.lblCerrarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lblCerrarSesion.Location = new System.Drawing.Point(686, 29);
+            this.lblCerrarSesion.Name = "lblCerrarSesion";
+            this.lblCerrarSesion.Size = new System.Drawing.Size(102, 16);
+            this.lblCerrarSesion.TabIndex = 6;
+            this.lblCerrarSesion.Text = "Cerrar Sesión";
+            this.lblCerrarSesion.Click += new System.EventHandler(this.lblCerrarSesion_Click);
+            this.lblCerrarSesion.MouseEnter += new System.EventHandler(this.lblCerrarSesion_MouseEnter);
+            this.lblCerrarSesion.MouseLeave += new System.EventHandler(this.lbl_MouseLeave);
+            // 
             // FeedPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.lblCrearCuenta);
             this.Controls.Add(this.lblIniciarSesion);
             this.Controls.Add(this.lblUsuario);
@@ -122,5 +137,6 @@
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Label lblIniciarSesion;
         private System.Windows.Forms.Label lblCrearCuenta;
+        private System.Windows.Forms.Label lblCerrarSesion;
     }
 }

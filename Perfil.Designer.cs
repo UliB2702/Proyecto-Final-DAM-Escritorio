@@ -37,16 +37,18 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.pbFotoPerfil = new System.Windows.Forms.PictureBox();
             this.lblNombre = new System.Windows.Forms.Label();
+            this.txtPublicar = new System.Windows.Forms.TextBox();
+            this.btnPublicar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbFotoPerfil)).BeginInit();
             this.SuspendLayout();
             // 
             // lblDescripcion
             // 
             this.lblDescripcion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(207)))), ((int)(((byte)(153)))));
-            this.lblDescripcion.Location = new System.Drawing.Point(170, 175);
+            this.lblDescripcion.Location = new System.Drawing.Point(173, 211);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Padding = new System.Windows.Forms.Padding(8);
-            this.lblDescripcion.Size = new System.Drawing.Size(473, 53);
+            this.lblDescripcion.Size = new System.Drawing.Size(470, 53);
             this.lblDescripcion.TabIndex = 2;
             this.lblDescripcion.Text = "sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" +
     "sssssssss";
@@ -67,15 +69,15 @@
             // pnlPosts
             // 
             this.pnlPosts.AutoScroll = true;
-            this.pnlPosts.Location = new System.Drawing.Point(173, 293);
+            this.pnlPosts.Location = new System.Drawing.Point(173, 422);
             this.pnlPosts.Name = "pnlPosts";
-            this.pnlPosts.Size = new System.Drawing.Size(470, 415);
+            this.pnlPosts.Size = new System.Drawing.Size(470, 445);
             this.pnlPosts.TabIndex = 4;
             // 
             // lblSeguidores
             // 
             this.lblSeguidores.AutoSize = true;
-            this.lblSeguidores.Location = new System.Drawing.Point(305, 257);
+            this.lblSeguidores.Location = new System.Drawing.Point(302, 177);
             this.lblSeguidores.Name = "lblSeguidores";
             this.lblSeguidores.Size = new System.Drawing.Size(72, 13);
             this.lblSeguidores.TabIndex = 5;
@@ -84,7 +86,7 @@
             // lblSeguidos
             // 
             this.lblSeguidos.AutoSize = true;
-            this.lblSeguidos.Location = new System.Drawing.Point(442, 257);
+            this.lblSeguidos.Location = new System.Drawing.Point(442, 179);
             this.lblSeguidos.Name = "lblSeguidos";
             this.lblSeguidos.Size = new System.Drawing.Size(63, 13);
             this.lblSeguidos.TabIndex = 6;
@@ -122,13 +124,38 @@
             this.lblNombre.Text = "label1";
             this.lblNombre.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // txtPublicar
+            // 
+            this.txtPublicar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(207)))), ((int)(((byte)(153)))));
+            this.txtPublicar.Location = new System.Drawing.Point(173, 288);
+            this.txtPublicar.MaxLength = 500;
+            this.txtPublicar.Multiline = true;
+            this.txtPublicar.Name = "txtPublicar";
+            this.txtPublicar.Size = new System.Drawing.Size(470, 81);
+            this.txtPublicar.TabIndex = 8;
+            // 
+            // btnPublicar
+            // 
+            this.btnPublicar.BackColor = System.Drawing.Color.Blue;
+            this.btnPublicar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPublicar.ForeColor = System.Drawing.Color.White;
+            this.btnPublicar.Location = new System.Drawing.Point(568, 375);
+            this.btnPublicar.Name = "btnPublicar";
+            this.btnPublicar.Size = new System.Drawing.Size(75, 23);
+            this.btnPublicar.TabIndex = 9;
+            this.btnPublicar.Text = "Publicar";
+            this.btnPublicar.UseVisualStyleBackColor = false;
+            this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
+            // 
             // Perfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
-            this.ClientSize = new System.Drawing.Size(800, 707);
+            this.ClientSize = new System.Drawing.Size(800, 866);
+            this.Controls.Add(this.btnPublicar);
+            this.Controls.Add(this.txtPublicar);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.lblSeguidos);
             this.Controls.Add(this.lblSeguidores);
@@ -157,6 +184,8 @@
         private System.Windows.Forms.Label lblSeguidos;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.TextBox txtPublicar;
+        private System.Windows.Forms.Button btnPublicar;
     }
 }
 

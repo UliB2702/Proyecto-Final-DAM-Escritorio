@@ -113,6 +113,7 @@ namespace DisenoEscritorio
                 this.lblUsuario.Visible = false;
                 this.lblIniciarSesion.Visible = true;
                 this.lblCrearCuenta.Visible = true;
+                this.lblCerrarSesion.Visible = false;
             }
             else
             {
@@ -121,6 +122,7 @@ namespace DisenoEscritorio
                 this.lblUsuario.Text = usuarioLogeado.Nombre;
                 this.lblIniciarSesion.Visible = false;
                 this.lblCrearCuenta.Visible = false;
+                this.lblCerrarSesion.Visible = true;
             }
         }
 
@@ -161,6 +163,16 @@ namespace DisenoEscritorio
         {
             Perfil p = new Perfil(usuarioLogeado.Nombre);
             DialogResult dr = p.ShowDialog();
+        }
+
+        private void lblCerrarSesion_MouseEnter(object sender, EventArgs e)
+        {
+            this.lblCerrarSesion.ForeColor = Color.Red;
+        }
+
+        private void lblCerrarSesion_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
