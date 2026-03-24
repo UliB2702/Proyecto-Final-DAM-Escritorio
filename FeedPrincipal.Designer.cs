@@ -123,6 +123,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FeedPrincipal";
             this.Text = "Placegiver";
+            this.Activated += new System.EventHandler(this.FeedPrincipal_Activated);
             this.Load += new System.EventHandler(this.FeedPrincipal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbFotoPerfil)).EndInit();
             this.ResumeLayout(false);

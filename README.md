@@ -19,3 +19,7 @@ Avance con el funcionamiento de login, ahora podiendo mantener un logueo guardan
 ## 23 de Marzo
 
 Avanzando con las funciones de publicar un post y cerrar sesion, aunque aún no son funcionales completamente
+
+## 24 de Marzo
+
+Agregue la funcion de borrar el archivo de log para cerrar sesion y recargar los componentes

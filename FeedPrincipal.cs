@@ -172,7 +172,18 @@ namespace DisenoEscritorio
 
         private void lblCerrarSesion_Click(object sender, EventArgs e)
         {
+            if (File.Exists("../../Resources/log.json"))
+            {
+                File.Delete("../../Resources/log.json");
+            }
+            CargarSesion();
+            CargarPosts();
+        }
 
+        private void FeedPrincipal_Activated(object sender, EventArgs e)
+        {
+            CargarPosts();
+            CargarSesion();
         }
     }
 }
