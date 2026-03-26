@@ -18,20 +18,32 @@ namespace DisenoEscritorio
     {
         private HttpClient client;
         Usuario usuarioLogeado;
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public FeedPrincipal()
         {
             InitializeComponent();
             client = new HttpClient();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void FeedPrincipal_Load(object sender, EventArgs e)
         {
             CargarSesion();
-            CargarPosts();
+            await CargarPosts();
         }
 
-        private async void CargarPosts()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private async Task CargarPosts()
         {
             this.pnlPosts.Controls.Clear();
             List<Post> posts = await PostsFeed();
@@ -43,6 +55,7 @@ namespace DisenoEscritorio
                 if (post.Usuario == usuarioLogeado.Nombre)
                 {
                     pc.PerteneceAUsuario = true;
+                    pc.ClickBorrar += borrarPost;
                 }
                 else
                 {
@@ -58,6 +71,11 @@ namespace DisenoEscritorio
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void IrAPerfil(object sender, EventArgs e)
         {
             PostControl p = (PostControl)(sender);
@@ -65,13 +83,17 @@ namespace DisenoEscritorio
             DialogResult dr = perfil.ShowDialog();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private async Task<List<Post>> PostsFeed()
         {
             try
             {
                 List<Post> posts;
                 string url = "http://localhost:8080/apirest_placegiver/rest/posts";
+                client = new HttpClient();
                 HttpResponseMessage response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
 
@@ -91,6 +113,9 @@ namespace DisenoEscritorio
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void CargarSesion()
         {
             string json = "";
@@ -126,64 +151,168 @@ namespace DisenoEscritorio
             }
         }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lbl_MouseEnter(object sender, EventArgs e)
         {
             Label lbl = (Label)sender;
             lbl.ForeColor = Color.Blue;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lbl_MouseLeave(object sender, EventArgs e)
         {
             Label lbl = (Label)sender;
             lbl.ForeColor = Color.Black;
         }
 
-        private void lblIniciarSesion_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void lblIniciarSesion_Click(object sender, EventArgs e)
         {
             IniciarSesion iniciarSesion = new IniciarSesion();
             DialogResult dr = iniciarSesion.ShowDialog();
             if (dr == DialogResult.OK) {
-                CargarPosts();
+                await CargarPosts();
                 CargarSesion();
             }
 
         }
 
-        private void lblCrearCuenta_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void lblCrearCuenta_Click(object sender, EventArgs e)
         {
             CrearCuenta cc = new CrearCuenta();
             DialogResult dr = cc.ShowDialog();
-            if (dr == DialogResult.OK) { 
-                
+            if (dr == DialogResult.OK) {
+                try
+                {
+                    Usuario u;
+                    string url = "http://localhost:8080/apirest_placegiver/rest/usuarios?nombre=" + cc.txtNombre.Text;
+                    client = new HttpClient();
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+                    string json = await response.Content.ReadAsStringAsync();
+                    u = JsonSerializer.Deserialize<Usuario>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+                    File.WriteAllText("../../Resources/log.json", json);
+                }
+                catch (Exception ex)
+                {
+
+                }
+                await CargarPosts();
+                CargarSesion();
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lblUsuario_Click(object sender, EventArgs e)
         {
             Perfil p = new Perfil(usuarioLogeado.Nombre);
             DialogResult dr = p.ShowDialog();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lblCerrarSesion_MouseEnter(object sender, EventArgs e)
         {
             this.lblCerrarSesion.ForeColor = Color.Red;
         }
 
-        private void lblCerrarSesion_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void lblCerrarSesion_Click(object sender, EventArgs e)
         {
             if (File.Exists("../../Resources/log.json"))
             {
                 File.Delete("../../Resources/log.json");
             }
             CargarSesion();
-            CargarPosts();
+            await CargarPosts();
         }
 
-        private void FeedPrincipal_Activated(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void FeedPrincipal_Activated(object sender, EventArgs e)
         {
-            CargarPosts();
+            await CargarPosts();
             CargarSesion();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void borrarPost(object sender, EventArgs e)
+        {
+            PostControl pc = (PostControl)sender;   
+            if (MessageBox.Show("¿Seguro que deseas borrar la publicación?","Borrar publicación",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                borrarPostApi(pc.IdPost);
+                CargarSesion();
+                await CargarPosts();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        private async void borrarPostApi(int id)
+        {
+            try
+            {
+                using(HttpClient client = new HttpClient())
+                {
+                    string url = "http://localhost:8080/apirest_placegiver/rest/posts/"+id;
+                    HttpResponseMessage response = await client.DeleteAsync(url);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("Post eliminado correctamente");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error: {response.StatusCode}");
+                    }
+                }
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

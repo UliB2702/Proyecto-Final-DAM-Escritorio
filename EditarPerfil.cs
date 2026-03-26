@@ -24,23 +24,35 @@ namespace DisenoEscritorio
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            string[] cadenas = this.txtEmail.Text.Split('@');
             if (this.txtEmail.Text == "")
             {
-                this.lblError.Text = "El campo de Email es obligatorio";
+                MessageBox.Show("El email es un campo obligatorio", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.lblError.Text = "El campo de Email es obligatorio"; 
+                this.txtEmail.Focus();
             }
             else if (this.txtPassword.Text == "")
             {
+                MessageBox.Show("La contraseña es un campo obligatorio", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.lblError.Text = "El campo de Contraseña es obligatorio";
+                this.txtPassword.Focus();
             }
-            else if (!this.txtEmail.Text.Contains("@"))
+            else if (!this.txtEmail.Text.Contains("@") || cadenas.Length != 2 || this.txtEmail.Text.Contains(' '))
             {
+                MessageBox.Show("El campo email debe contener uno valido", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.lblError.Text = "Tiene que introducirse un email valido";
+                this.txtEmail.Focus();
             }
             else
             {
-
+                this.DialogResult = DialogResult.OK;
             }
         }
     }

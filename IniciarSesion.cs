@@ -16,11 +16,20 @@ namespace DisenoEscritorio
     public partial class IniciarSesion : Form
     {
         private HttpClient client;
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public IniciarSesion()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnEnviar_Click(object sender, EventArgs e)
         {
             if (this.txtNombre.Text.Trim() == "" || this.txtPassword.Text.Trim() == "")
@@ -42,6 +51,10 @@ namespace DisenoEscritorio
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> ComprobarUsuario()
         {
             try

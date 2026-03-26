@@ -170,13 +170,13 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtDescripcion;
+        public System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblUsuario;
-        private System.Windows.Forms.PictureBox pbFotoPerfil;
+        public System.Windows.Forms.Label lblUsuario;
+        public System.Windows.Forms.PictureBox pbFotoPerfil;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.TextBox txtPassword;
+        public System.Windows.Forms.TextBox txtEmail;
+        public System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label lblError;

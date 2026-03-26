@@ -23,3 +23,7 @@ Avanzando con las funciones de publicar un post y cerrar sesion, aunque aún no 
 ## 24 de Marzo
 
 Agregue la funcion de borrar el archivo de log para cerrar sesion y recargar los componentes
+
+## 26 de Marzo
+
+Funciones de crear y borrar post, editar perfil funcionando correctamente. Agregada la funcion de crear post aunque falta testearla
