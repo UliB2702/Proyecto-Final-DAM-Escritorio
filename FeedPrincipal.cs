@@ -20,7 +20,7 @@ namespace DisenoEscritorio
         Usuario usuarioLogeado;
         
         /// <summary>
-        /// 
+        /// Main form where you can see the most recent posts
         /// </summary>
         public FeedPrincipal()
         {
@@ -29,18 +29,18 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that activates when the form loads. It loads the most recent posts and the user's session in case there was one already
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private async void FeedPrincipal_Load(object sender, EventArgs e)
         {
-            CargarSesion();
+            await CargarSesion();
             await CargarPosts();
         }
 
         /// <summary>
-        /// 
+        /// Calls the Api for the most recent posts and creates a PostController for each of them and gives them properties if they are from the current logged user
         /// </summary>
         /// <returns></returns>
         private async Task CargarPosts()
@@ -72,9 +72,9 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the User's name from a post is clicked. It opens the Account form of that user
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private void IrAPerfil(object sender, EventArgs e)
         {
@@ -84,9 +84,9 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Calls the API for the most recent posts from the database
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns a list with all the posts found or a empty list in case there was some error with the server</returns>
         private async Task<List<Post>> PostsFeed()
         {
             try
@@ -114,9 +114,9 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// It loads the log.txt file from the resources and verifies if it is a valid user and, if it is, puts visible the user buttons.
         /// </summary>
-        private void CargarSesion()
+        private async Task CargarSesion()
         {
             string json = "";
             try
@@ -132,7 +132,7 @@ namespace DisenoEscritorio
                 Console.WriteLine(e.Message);
                 usuarioLogeado = new Usuario();
             }
-            if (usuarioLogeado.Nombre == null || usuarioLogeado.Nombre == "")
+            if (usuarioLogeado.Nombre == null || usuarioLogeado.Nombre == "" || !(await ComprobarUsuario(usuarioLogeado.Nombre, usuarioLogeado.Password)))
             {
                 this.pbFotoPerfil.Visible = false;
                 this.lblUsuario.Visible = false;
@@ -151,10 +151,46 @@ namespace DisenoEscritorio
             }
         }
 
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
+        /// <returns></returns>
+        private async Task<bool> ComprobarUsuario(string nombre, string pass)
+        {
+            try
+            {
+                string url = $"http://localhost:8080/apirest_placegiver/rest/usuarios/login?nombre={Uri.EscapeDataString(nombre)}&pass={Uri.EscapeDataString(pass)}";
+
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return false;
+                }
+
+                string json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(json); // DEBUG
+
+                Usuario u = JsonSerializer.Deserialize<Usuario>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                return u != null && !string.IsNullOrEmpty(u.Nombre);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private void lbl_MouseEnter(object sender, EventArgs e)
         {
@@ -165,7 +201,7 @@ namespace DisenoEscritorio
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private void lbl_MouseLeave(object sender, EventArgs e)
         {
@@ -176,7 +212,7 @@ namespace DisenoEscritorio
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private async void lblIniciarSesion_Click(object sender, EventArgs e)
         {
@@ -192,7 +228,7 @@ namespace DisenoEscritorio
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private async void lblCrearCuenta_Click(object sender, EventArgs e)
         {
@@ -226,7 +262,7 @@ namespace DisenoEscritorio
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private void lblUsuario_Click(object sender, EventArgs e)
         {
@@ -237,7 +273,7 @@ namespace DisenoEscritorio
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private void lblCerrarSesion_MouseEnter(object sender, EventArgs e)
         {
@@ -247,7 +283,7 @@ namespace DisenoEscritorio
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private async void lblCerrarSesion_Click(object sender, EventArgs e)
         {
@@ -262,7 +298,7 @@ namespace DisenoEscritorio
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private async void FeedPrincipal_Activated(object sender, EventArgs e)
         {
@@ -273,7 +309,7 @@ namespace DisenoEscritorio
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
         private async void borrarPost(object sender, EventArgs e)
         {
@@ -289,7 +325,7 @@ namespace DisenoEscritorio
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Post's id that must be deleted</param>
         private async void borrarPostApi(int id)
         {
             try

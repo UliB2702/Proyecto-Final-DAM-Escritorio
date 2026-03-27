@@ -111,6 +111,40 @@ namespace DisenoEscritorio
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        private async Task<bool> ComprobarUsuario(string nombre, string pass)
+        {
+            try
+            {
+                string url = $"http://localhost:8080/apirest_placegiver/rest/usuarios/login?nombre={Uri.EscapeDataString(nombre)}&pass={Uri.EscapeDataString(pass)}";
+
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return false;
+                }
+
+                string json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(json); // DEBUG
+
+                Usuario u = JsonSerializer.Deserialize<Usuario>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                return u != null && !string.IsNullOrEmpty(u.Nombre);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void Form1_Load(object sender, EventArgs e)
@@ -126,7 +160,7 @@ namespace DisenoEscritorio
             await CargarPosts();
             
 
-            if (usuarioActual.Nombre == usuarioLogeado.Nombre)
+            if (await ComprobarUsuario(usuarioLogeado.Nombre, usuarioLogeado.Password) && usuarioActual.Nombre == usuarioLogeado.Nombre)
             {
                 this.btnEditar.Visible = true;
                 this.btnSeguir.Visible = false;
@@ -148,7 +182,7 @@ namespace DisenoEscritorio
         {
             CargarSesion();
             await CargarPosts();
-            if (usuarioActual.Nombre == usuarioLogeado.Nombre)
+            if (await ComprobarUsuario(usuarioLogeado.Nombre, usuarioLogeado.Password) && usuarioActual.Nombre == usuarioLogeado.Nombre)
             {
                 this.btnEditar.Visible = true;
                 this.btnSeguir.Visible = false;
@@ -163,7 +197,7 @@ namespace DisenoEscritorio
                 this.btnPublicar.Visible = false;
             }
             Usuario u = await CargarPerfil();
-            if (u != null || u.Nombre != "") { 
+            if (u != null && u.Nombre != "") { 
                 this.lblNombre.Text = u.Nombre;
                 this.lblDescripcion.Text = u.Descripcion;
             }

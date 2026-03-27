@@ -72,7 +72,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(100, 215);
+            this.label2.Location = new System.Drawing.Point(103, 215);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 9;
@@ -83,10 +83,8 @@
             this.txtPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(207)))), ((int)(((byte)(153)))));
             this.txtPassword.Location = new System.Drawing.Point(103, 231);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(367, 20);
             this.txtPassword.TabIndex = 10;
-            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // btnEnviar
             // 
@@ -114,18 +112,18 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(100, 159);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(99, 13);
+            this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Nombre de usuario:";
+            this.label3.Text = "Email:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(100, 263);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 13);
+            this.label4.Size = new System.Drawing.Size(110, 13);
             this.label4.TabIndex = 14;
-            this.label4.Text = "Nueva contraseña:";
+            this.label4.Text = "Confirmar contraseña:";
             // 
             // txtConfirmPassword
             // 

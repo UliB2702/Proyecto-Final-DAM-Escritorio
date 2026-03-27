@@ -15,22 +15,38 @@ namespace DisenoEscritorio
 {
     public partial class CrearCuenta : Form
     {
+        /// <summary>
+        /// Form where the users create their account in case they don't have one
+        /// </summary>
         public CrearCuenta()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// 
+        /// Verifies the data fields are all correct and send it to the API to be saved on the database. It case that goes well, the form closes
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void btnEnviar_Click(object sender, EventArgs e)
         {
-            if(this.txtNombre.Text.Trim() == "" || this.txtEmail.Text.Trim() == "" || this.txtPassword.Text.Trim() == "" || this.txtConfirmPassword.Text.Trim() == "")
+            string[] cadenas = this.txtEmail.Text.Split('@');
+            if (this.txtNombre.Text.Trim() == "" || this.txtEmail.Text.Trim() == "" || this.txtPassword.Text.Trim() == "" || this.txtConfirmPassword.Text.Trim() == "")
             {
                 MessageBox.Show("Todos los campos deben rellenarse para crear una cuenta", "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 lblError.Text = "Todos los campos deben rellenarse para crear una cuenta";
+            }
+            else if (!this.txtEmail.Text.Contains("@") || cadenas.Length != 2 || this.txtEmail.Text.Contains(' ') || cadenas[0] == "" || cadenas[1] == "")
+            {
+                MessageBox.Show("El campo email debe contener uno valido", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.lblError.Text = "Tiene que introducirse un email valido";
+                this.txtEmail.Focus();
+            }
+            else if (this.txtPassword.Text != this.txtConfirmPassword.Text)
+            {
+                MessageBox.Show("Ambos cambos de contraseña deben contener la misma contraseña", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                this.lblError.Text = "Ambos cambos de contraseña deben contener la misma contraseña";
+                this.txtConfirmPassword.Focus();
             }
             else
             {
@@ -40,16 +56,16 @@ namespace DisenoEscritorio
                 }
                 else
                 {
-                    MessageBox.Show("Hubo un problema con el servidor. Informa a los creadores del error", "Error al crear", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Hubo un problema con los datos. Revisalos e ingresalos de nuevo", "Error al crear", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.lblError.Text = "Algunos de los datos es incorrecto. Intentalo de nuevo";
                 }
             }
         }
 
         /// <summary>
-        /// 
+        /// Inserts the user's data on the database and verifies if it can be created or if there is already a user with that name
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns true if the user was successfully created or false if it wasn't</returns>
         private async Task<bool> CrearUsuario()
         {
             try

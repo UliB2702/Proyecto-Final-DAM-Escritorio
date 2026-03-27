@@ -44,7 +44,7 @@ namespace DisenoEscritorio
                 this.lblError.Text = "El campo de Contraseña es obligatorio";
                 this.txtPassword.Focus();
             }
-            else if (!this.txtEmail.Text.Contains("@") || cadenas.Length != 2 || this.txtEmail.Text.Contains(' '))
+            else if (!this.txtEmail.Text.Contains("@") || cadenas.Length != 2 || this.txtEmail.Text.Contains(' ') || cadenas[0] == "" || cadenas[1] == "")
             {
                 MessageBox.Show("El campo email debe contener uno valido", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 this.lblError.Text = "Tiene que introducirse un email valido";
