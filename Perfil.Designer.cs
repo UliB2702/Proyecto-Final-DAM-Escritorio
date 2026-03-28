@@ -39,6 +39,7 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.txtPublicar = new System.Windows.Forms.TextBox();
             this.btnPublicar = new System.Windows.Forms.Button();
+            this.cbCategoria = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbFotoPerfil)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,9 +70,9 @@
             // pnlPosts
             // 
             this.pnlPosts.AutoScroll = true;
-            this.pnlPosts.Location = new System.Drawing.Point(173, 422);
+            this.pnlPosts.Location = new System.Drawing.Point(173, 430);
             this.pnlPosts.Name = "pnlPosts";
-            this.pnlPosts.Size = new System.Drawing.Size(470, 445);
+            this.pnlPosts.Size = new System.Drawing.Size(470, 437);
             this.pnlPosts.TabIndex = 4;
             // 
             // lblSeguidores
@@ -139,13 +140,26 @@
             this.btnPublicar.BackColor = System.Drawing.Color.Blue;
             this.btnPublicar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnPublicar.ForeColor = System.Drawing.Color.White;
-            this.btnPublicar.Location = new System.Drawing.Point(568, 375);
+            this.btnPublicar.Location = new System.Drawing.Point(568, 401);
             this.btnPublicar.Name = "btnPublicar";
             this.btnPublicar.Size = new System.Drawing.Size(75, 23);
             this.btnPublicar.TabIndex = 9;
             this.btnPublicar.Text = "Publicar";
             this.btnPublicar.UseVisualStyleBackColor = false;
             this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
+            // 
+            // cbCategoria
+            // 
+            this.cbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.cbCategoria.FormattingEnabled = true;
+            this.cbCategoria.Items.AddRange(new object[] {
+            "Desarrollo",
+            "Propuestas de Trabajo",
+            "Preguntas Generales"});
+            this.cbCategoria.Location = new System.Drawing.Point(176, 375);
+            this.cbCategoria.Name = "cbCategoria";
+            this.cbCategoria.Size = new System.Drawing.Size(464, 20);
+            this.cbCategoria.TabIndex = 10;
             // 
             // Perfil
             // 
@@ -154,6 +168,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
             this.ClientSize = new System.Drawing.Size(800, 866);
+            this.Controls.Add(this.cbCategoria);
             this.Controls.Add(this.btnPublicar);
             this.Controls.Add(this.txtPublicar);
             this.Controls.Add(this.btnEditar);
@@ -187,6 +202,7 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.TextBox txtPublicar;
         private System.Windows.Forms.Button btnPublicar;
+        private System.Windows.Forms.ComboBox cbCategoria;
     }
 }
 

@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace ComponentesRedSocial
 {
+    /// <summary>
+    /// Control that is used to show a Post in the forms
+    /// </summary>
     [
         DefaultEvent(""),
         DefaultProperty("Texto")
@@ -31,6 +34,8 @@ namespace ComponentesRedSocial
 
         }
 
+        [Category("My properties")]
+        [Description("Id of the post")]
         public int IdPost
         {
             set
@@ -43,6 +48,8 @@ namespace ComponentesRedSocial
             }
         }
 
+        [Category("My properties")]
+        [Description("Id of the post's category")]
         public int IdCategoria
         {
             set
@@ -55,10 +62,10 @@ namespace ComponentesRedSocial
             }
         }
 
-        
 
-        [Category("Mis propiedades")]
-        [Description("El texto que viene en la publicación")]
+
+        [Category("My properties")]
+        [Description("Text of the post")]
         public string Texto
         {
             set
@@ -71,8 +78,8 @@ namespace ComponentesRedSocial
             }
         }
 
-        [Category("Mis propiedades")]
-        [Description("Nombre del usuario que publico el post")]
+        [Category("My properties")]
+        [Description("Name of the user who owns the post")]
         public string Usuario
         {
             set
@@ -85,8 +92,8 @@ namespace ComponentesRedSocial
             }
         }
 
-        [Category("Mis propiedades")]
-        [Description("Determina si el control le pertenece al usuario actual o no")]
+        [Category("My properties")]
+        [Description("Determines is the post is owned by the current logged user or not")]
         public bool PerteneceAUsuario
         {
             set
@@ -108,9 +115,15 @@ namespace ComponentesRedSocial
 
 
 
-        [Category("Mis eventos")]
-        [Description("Se acriva cuando se preciona el boton de borrar")]
+        [Category("My events")]
+        [Description("It activates when the btnBorras is clicked")]
         public event EventHandler ClickBorrar;
+
+        /// <summary>
+        /// Event that occurs that when the btnBorrar is clicked. It calls to OnClickBorrar
+        /// </summary>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             OnClickBorrar(sender, e);
@@ -123,9 +136,10 @@ namespace ComponentesRedSocial
             }
         }
 
-        [Category("Mis eventos")]
-        [Description("Se acriva cuando se preciona el boton de borrar")]
+        [Category("My events")]
+        [Description("It activates when the user profile image or name is clicked")]
         public event EventHandler ClickPerfil;
+
 
 
         protected void OnClickPerfil(object sender, EventArgs e)
@@ -136,21 +150,41 @@ namespace ComponentesRedSocial
             }
         }
 
+        /// <summary>
+        /// Event that occurs that when the pbFotoUsuario is clicked. It calls to OnClickPerfil
+        /// </summary>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private void pbFotoUsuario_Click(object sender, EventArgs e)
         {
             OnClickPerfil(sender, e);
         }
 
+        /// <summary>
+        /// Event that occurs that when the lblUsuario is clicked. It calls to OnClickPerfil
+        /// </summary>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private void lblUsuario_Click(object sender, EventArgs e)
         {
             OnClickPerfil(sender, e);
         }
 
+        /// <summary>
+        /// Event that occurs when the mouse is over the lblUsuario. It changes the Foreground color to blue to emphasize this
+        /// </summary>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private void lblUsuario_MouseEnter(object sender, EventArgs e)
         {
             this.lblUsuario.ForeColor = Color.Blue;
         }
 
+        /// <summary>
+        /// Event that occurs when the mouse stops being over the lblUsuario. It changes the Foreground color to black to emphasize this
+        /// </summary>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private void lblUsuario_MouseLeave(object sender, EventArgs e)
         {
             this.lblUsuario.ForeColor = Color.Black;

@@ -15,7 +15,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace DisenoEscritorio
 {
-
+    /// <summary>
+    /// Form where appears an user's information based on the given name
+    /// </summary>
     public partial class Perfil : Form
     {
         private HttpClient client;
@@ -25,12 +27,13 @@ namespace DisenoEscritorio
         Usuario usuarioLogeado = new Usuario();
 
         /// <summary>
-        /// 
+        /// Initializes the Perfil form. It also calls the CargarSesion function to check the current user's log
         /// </summary>
-        /// <param name="usuario"></param>
+        /// <param name="usuario">Name of the user that wants to be shown</param>
         public Perfil(string usuario)
         {
             InitializeComponent();
+            this.cbCategoria.SelectedIndex = 3;
             client = new HttpClient();
             nombreUsuarioActual = usuario;
             CargarSesion();
@@ -38,7 +41,8 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Opens the log.txt and deserializes it as an Usuario object for the current logged user. 
+        /// If the file's format is wrong, it sets the information as empty
         /// </summary>
         private void CargarSesion()
         {
@@ -59,9 +63,9 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Calls the Api to search for current profile user's lastest posts
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list of Post objects with lastest posts from a user</returns>
         private async Task<List<Post>> PostsDeUsuario()
         {
             try
@@ -89,9 +93,9 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Giving the name of a user, searches all the data from them and returns it
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An Usuario object with the result data from the api. If it happens to be null, it returns an object with all the data empty</returns>
         private async Task<Usuario> CargarPerfil()
         {
             Usuario u;
@@ -109,9 +113,11 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Giving the name and the password of a user, confirms if there is such user in the database with matching data
         /// </summary>
-        /// <returns></returns>
+        /// <param name="nombre">Name of the user that wants to be searched</param>
+        /// <param name="pass">Password of the user that wants to be searched</param>
+        /// <returns>Returns true if the user was found or false if it wasn't</returns>
         private async Task<bool> ComprobarUsuario(string nombre, string pass)
         {
             try
@@ -126,7 +132,7 @@ namespace DisenoEscritorio
                 }
 
                 string json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(json); // DEBUG
+                Console.WriteLine(json); 
 
                 Usuario u = JsonSerializer.Deserialize<Usuario>(json, new JsonSerializerOptions
                 {
@@ -137,19 +143,26 @@ namespace DisenoEscritorio
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
 
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when Perfil form loads. It loads the profile's data if the it is correct and the current logged user information
+        /// Also, makes visible or not certain components if the verified logged user and the user of the current profile are the same or not
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private async void Form1_Load(object sender, EventArgs e)
         {
             usuarioActual = await CargarPerfil();
+            if (usuarioActual.Nombre == null || usuarioActual.Nombre == "" || !(await ComprobarUsuario(usuarioActual.Nombre, usuarioActual.Password)))
+            {
+                MessageBox.Show("Hubo un error al abrir el formulario. El usuario que intenta buscar no existe", "Error de perfil", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
             lblNombre.Text = usuarioActual.Nombre;
             lblDescripcion.Text = usuarioActual.Descripcion;
             if(lblDescripcion.Text == "")
@@ -176,10 +189,23 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Function that reloads all the information of the profile.
+        /// It combines the verification of the user profile and current logged user.
         /// </summary>
         public async void RecargarDatos()
         {
+            usuarioActual = await CargarPerfil();
+            if (usuarioActual.Nombre == null || usuarioActual.Nombre == "" || !(await ComprobarUsuario(usuarioActual.Nombre, usuarioActual.Password)))
+            {
+                MessageBox.Show("Hubo un error al abrir el formulario. El usuario que intenta buscar no existe", "Error de perfil", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+            lblNombre.Text = usuarioActual.Nombre;
+            lblDescripcion.Text = usuarioActual.Descripcion;
+            if (lblDescripcion.Text == "")
+            {
+                lblDescripcion.Visible = false;
+            }
             CargarSesion();
             await CargarPosts();
             if (await ComprobarUsuario(usuarioLogeado.Nombre, usuarioLogeado.Password) && usuarioActual.Nombre == usuarioLogeado.Nombre)
@@ -196,17 +222,11 @@ namespace DisenoEscritorio
                 this.txtPublicar.Visible = false;
                 this.btnPublicar.Visible = false;
             }
-            Usuario u = await CargarPerfil();
-            if (u != null && u.Nombre != "") { 
-                this.lblNombre.Text = u.Nombre;
-                this.lblDescripcion.Text = u.Descripcion;
-            }
         }
 
         /// <summary>
-        /// 
+        /// It loads the pnlPosts with PostControls for each post of the current user's profile
         /// </summary>
-        /// <returns></returns>
         private async Task CargarPosts()
         {
             this.pnlPosts.Controls.Clear();
@@ -231,10 +251,11 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the btnEditar is clicked. It opens the EditarPerfil form as a modal form
+        /// If the answer was Ok, then saves the user data in the database and in the log.txt file. After that, reloads the form
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private async void btnEditar_Click(object sender, EventArgs e)
         {
             EditarPerfil ep = new EditarPerfil(usuarioActual);
@@ -257,10 +278,10 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Calls the Api to save the data of a user is sent as a param. It sends a MessageBox announcing the result and also returns it
         /// </summary>
-        /// <param name="u"></param>
-        /// <returns></returns>
+        /// <param name="u">Usuario object with the data that has to be updated</param>
+        /// <returns>Returns true or false depending if the changes were saved successfully</returns>
         private async Task<bool> guardarCambiosPerfil(Usuario u)
         {
             try
@@ -295,10 +316,10 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the btnPublicar is clicked. If the post is valid, it tries to saved it in the database and, then, reloads the posts
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private async void btnPublicar_Click(object sender, EventArgs e)
         {
             if(txtPublicar.Text != "")
@@ -306,6 +327,7 @@ namespace DisenoEscritorio
                 Post p = new Post();
                 p.Usuario = usuarioLogeado.Nombre;
                 p.Texto = this.txtPublicar.Text;
+                p.IdCategoria = cbCategoria.SelectedIndex;
                 await Postear(p);
                 await CargarPosts();
             }
@@ -317,10 +339,9 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Calls the Api and saves a Post in the database that is sent as a parm. Puts a MessageBox with the result
         /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
+        /// <param name="p">Post that is sent to save</param>
         private async Task Postear(Post p)
         {
             try
@@ -360,10 +381,11 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when a button with this event is clicked, which are the btnBorrar of each PostControl.
+        /// It asks the user if they are sure to delete the post. If the answer is yes, then it calls the borrarPostApi function to delete it from the database. Then, the form's data is reloaded
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private async void borrarPost(object sender, EventArgs e)
         {
             PostControl pc = (PostControl)sender;
@@ -375,10 +397,9 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Calls the Api to delete a post from the database with an id is given as a param
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Post's id that must be deleted</param>
         private async Task borrarPostApi(int id)
         {
             try
@@ -407,11 +428,11 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the form is activated. Calls the RecargarDatos function to reload all the form's data
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void Perfil_Activated(object sender, EventArgs e)
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
+        private void Perfil_Activated(object sender, EventArgs e)
         {
             RecargarDatos();
         }

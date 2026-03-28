@@ -10,9 +10,17 @@ using System.Windows.Forms;
 
 namespace DisenoEscritorio
 {
+    /// <summary>
+    /// Form where the users can edit the information of their accounts
+    /// </summary>
     public partial class EditarPerfil : Form
     {
         private Usuario datos = new Usuario();
+
+        /// <summary>
+        /// Initializes the EditarPerfil form. Puts the current data of the user in their respective fields
+        /// </summary>
+        /// <param name="u">Data of the user that wants to be edited</param>
         public EditarPerfil(Usuario u)
         {
             InitializeComponent();
@@ -25,10 +33,10 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the btnGuardar is clicked. Verifies if all the data sent by the user is correct and, if it is, sent a Ok on DialogResult
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             string[] cadenas = this.txtEmail.Text.Split('@');

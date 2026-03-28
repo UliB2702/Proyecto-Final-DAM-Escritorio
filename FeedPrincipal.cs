@@ -14,13 +14,16 @@ using System.Windows.Forms;
 
 namespace DisenoEscritorio
 {
+    /// <summary>
+    /// Main form where you can see the most recent posts.
+    /// </summary>
     public partial class FeedPrincipal : Form
     {
         private HttpClient client;
         Usuario usuarioLogeado;
         
         /// <summary>
-        /// Main form where you can see the most recent posts
+        /// Initializes the FeedPrincipal form. It also initializes the HttpClient for it's use later
         /// </summary>
         public FeedPrincipal()
         {
@@ -29,10 +32,10 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// Event that activates when the form loads. It loads the most recent posts and the user's session in case there was one already
+        /// Event that occurs when the form loads. It loads the most recent posts and the user's session in case there was one already
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
-        /// <param name="e"></param>
+        /// <param name="e">Data related to the event</param>
         private async void FeedPrincipal_Load(object sender, EventArgs e)
         {
             await CargarSesion();
@@ -40,9 +43,8 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// Calls the Api for the most recent posts and creates a PostController for each of them and gives them properties if they are from the current logged user
+        /// Calls the Api for the most recent posts and creates a PostController for each of them. It also gives them properties if they belong to the current logged user
         /// </summary>
-        /// <returns></returns>
         private async Task CargarPosts()
         {
             this.pnlPosts.Controls.Clear();
@@ -75,7 +77,7 @@ namespace DisenoEscritorio
         /// Event that occurs when the User's name from a post is clicked. It opens the Account form of that user
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
-        /// <param name="e"></param>
+        /// <param name="e">Data related to the event</param>
         private void IrAPerfil(object sender, EventArgs e)
         {
             PostControl p = (PostControl)(sender);
@@ -153,9 +155,11 @@ namespace DisenoEscritorio
 
 
         /// <summary>
-        /// 
+        /// Giving the name and the password of a user, confirms if there is such user in the database with matching data
         /// </summary>
-        /// <returns></returns>
+        /// <param name="nombre">Name of the user that wants to be searched</param>
+        /// <param name="pass">Password of the user that wants to be searched</param>
+        /// <returns>Returns true if the user was found or false if it wasn't</returns>
         private async Task<bool> ComprobarUsuario(string nombre, string pass)
         {
             try
@@ -170,7 +174,7 @@ namespace DisenoEscritorio
                 }
 
                 string json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(json); // DEBUG
+                Console.WriteLine(json);
 
                 Usuario u = JsonSerializer.Deserialize<Usuario>(json, new JsonSerializerOptions
                 {
@@ -188,10 +192,10 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the mouse is over a label that has the event. It changes the Foreground color to blue to emphasize this
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
-        /// <param name="e"></param>
+        /// <param name="e">Data related to the event</param>
         private void lbl_MouseEnter(object sender, EventArgs e)
         {
             Label lbl = (Label)sender;
@@ -199,7 +203,7 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the mouse stops being over a label that has the event. It changes the Foreground color to black to emphasize this
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
         /// <param name="e"></param>
@@ -210,26 +214,27 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the lblIniciarSesion is clicked. It opens the IniciarSesion form as a modal form and, if the user logged correctly, it loads the log.txt session and reloads the posts
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
-        /// <param name="e"></param>
+        /// <param name="e">Data related to the event</param>
         private async void lblIniciarSesion_Click(object sender, EventArgs e)
         {
             IniciarSesion iniciarSesion = new IniciarSesion();
             DialogResult dr = iniciarSesion.ShowDialog();
             if (dr == DialogResult.OK) {
                 await CargarPosts();
-                CargarSesion();
+                await CargarSesion();
             }
 
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the lblCrearCuenta is clicked. It opens the CrearCuenta form as a modal form.
+        /// If the user created the account successfully, it confirms the user was created currectly and saves the data in the log.txt file. Finally, it reloads the current form's data
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
-        /// <param name="e"></param>
+        /// <param name="e">Data related to the event</param>
         private async void lblCrearCuenta_Click(object sender, EventArgs e)
         {
             CrearCuenta cc = new CrearCuenta();
@@ -260,10 +265,10 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the lblUsuario is clicked. It opens the Perfil form as a modal form of the current logged user.
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
-        /// <param name="e"></param>
+        /// <param name="e">Data related to the event</param>
         private void lblUsuario_Click(object sender, EventArgs e)
         {
             Perfil p = new Perfil(usuarioLogeado.Nombre);
@@ -271,59 +276,60 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the mouse is over the lblCerrarSesion. It changes the Foreground color to red to emphasize this
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
-        /// <param name="e"></param>
+        /// <param name="e">Data related to the event</param>
         private void lblCerrarSesion_MouseEnter(object sender, EventArgs e)
         {
             this.lblCerrarSesion.ForeColor = Color.Red;
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the lblCerrarSesion is clicked. It deletes the log.txt file so the user can be logged out. Then, the forms data is reloaded
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
-        /// <param name="e"></param>
+        /// <param name="e">Data related to the event</param>
         private async void lblCerrarSesion_Click(object sender, EventArgs e)
         {
             if (File.Exists("../../Resources/log.json"))
             {
                 File.Delete("../../Resources/log.json");
             }
-            CargarSesion();
+            await CargarSesion();
             await CargarPosts();
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the Form is activated. It reloads the data of the form in case there was some kind of change
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
-        /// <param name="e"></param>
+        /// <param name="e">Data related to the event</param>
         private async void FeedPrincipal_Activated(object sender, EventArgs e)
         {
             await CargarPosts();
-            CargarSesion();
+            await CargarSesion();
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when a button with this event is clicked, which are the btnBorrar of each PostControl.
+        /// It asks the user if they are sure to delete the post. If the answer is yes, then it calls the borrarPostApi function to delete it from the database. Then, the form's data is reloaded
         /// </summary>
         /// <param name="sender">Object that activated the event</param>
-        /// <param name="e"></param>
+        /// <param name="e">Data related to the event</param>
         private async void borrarPost(object sender, EventArgs e)
         {
             PostControl pc = (PostControl)sender;   
             if (MessageBox.Show("¿Seguro que deseas borrar la publicación?","Borrar publicación",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 borrarPostApi(pc.IdPost);
-                CargarSesion();
+                await CargarSesion();
                 await CargarPosts();
             }
         }
 
         /// <summary>
-        /// 
+        /// Calls the Api to delete a post from the database with an id is given as a param
         /// </summary>
         /// <param name="id">Post's id that must be deleted</param>
         private async void borrarPostApi(int id)

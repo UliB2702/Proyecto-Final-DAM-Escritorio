@@ -13,12 +13,15 @@ using System.Windows.Forms;
 
 namespace DisenoEscritorio
 {
+    /// <summary>
+    /// Form where the users log in with their account
+    /// </summary>
     public partial class IniciarSesion : Form
     {
         private HttpClient client;
-        
+
         /// <summary>
-        /// 
+        /// Initializes the IniciarSesion form.
         /// </summary>
         public IniciarSesion()
         {
@@ -26,10 +29,11 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Event that occurs when the btnEnviar is clicked
+        /// Verifies the data fields are all correct and calls the api the search for them in the database. It case that goes well, sends OK as DialogResult and it the form closes
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
         private async void btnEnviar_Click(object sender, EventArgs e)
         {
             if (this.txtNombre.Text.Trim() == "" || this.txtPassword.Text.Trim() == "")
@@ -52,9 +56,9 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
-        /// 
+        /// Calls the Api to verify if the is a user with the name and password sent in the form. If there is, saves the result in log.txt
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns trye or false if a user was found with the password and name sent</returns>
         private async Task<bool> ComprobarUsuario()
         {
             try
@@ -80,6 +84,7 @@ namespace DisenoEscritorio
                 }
             }
             catch (Exception ex) {
+                Console.WriteLine(ex.Message);
                 return false;
             }
             

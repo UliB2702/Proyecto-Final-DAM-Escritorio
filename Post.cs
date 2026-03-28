@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DisenoEscritorio
 {
+    /// <summary>
+    /// Object that is used to contain a post's data from the database
+    /// </summary>
     internal class Post
     {
         private int id;

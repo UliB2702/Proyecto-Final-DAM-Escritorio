@@ -13,10 +13,13 @@ using System.Windows.Forms;
 
 namespace DisenoEscritorio
 {
+    /// <summary>
+    /// Form where the users create their account in case they don't have one
+    /// </summary>
     public partial class CrearCuenta : Form
     {
         /// <summary>
-        /// Form where the users create their account in case they don't have one
+        /// Initializes the CrearCuenta form.
         /// </summary>
         public CrearCuenta()
         {
@@ -24,6 +27,7 @@ namespace DisenoEscritorio
         }
 
         /// <summary>
+        /// Event that occurs when the btnEnviar is clicked
         /// Verifies the data fields are all correct and send it to the API to be saved on the database. It case that goes well, the form closes
         /// </summary>
         /// <param name="sender"></param>

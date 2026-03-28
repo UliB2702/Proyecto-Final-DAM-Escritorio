@@ -28,6 +28,10 @@ Agregue la funcion de borrar el archivo de log para cerrar sesion y recargar los
 
 Funciones de crear y borrar post, editar perfil funcionando correctamente. Agregada la funcion de crear post aunque falta testearla
 
-## 28 de Marzo
+## 27 de Marzo
 
 Funcion de crear usuario testeada y con varias verificaciones. A su vez, mejore el sistema de login y la comprobacion de la sesion guardada, y empece con la documentacion de las funciones en ingles
+
+## 28 de Marzo
+
+Documentación añadida para todas las clases en ingles, añadiendo tambien la base de datos y la api en el mismo repositoriog

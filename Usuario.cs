@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DisenoEscritorio
 {
+    /// <summary>
+    /// Object that is used to contain an user's data from the database
+    /// </summary>
     public class Usuario
     {
         private string nombre;
@@ -27,10 +30,29 @@ namespace DisenoEscritorio
             this.FechaCreacion = fechaCreacion;
         }
 
+        /// <summary>
+        /// Name of the user
+        /// </summary>
         public string Nombre { get => nombre; set => nombre = value; }
+
+        /// <summary>
+        /// Description of the user
+        /// </summary>
         public string Descripcion { get => descripcion; set => descripcion = value; }
+
+        /// <summary>
+        /// Email of the user
+        /// </summary>
         public string Email { get => email; set => email = value; }
+
+        /// <summary>
+        /// Password of the user's account
+        /// </summary>
         public string Password { get => password; set => password = value; }
+
+        /// <summary>
+        /// Creation date of the user's account
+        /// </summary>
         public string FechaCreacion { get => fechaCreacion; set => fechaCreacion = value; }
     }
 }
