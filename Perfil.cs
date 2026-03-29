@@ -346,7 +346,7 @@ namespace DisenoEscritorio
         {
             try
             {
-                string url = "http://localhost:8080/apirest_placegiver/rest/posts/publicar";
+                string url = "http://localhost:8080/apirest_placegiver/rest/posts/publicarConCategoria";
                 var options = new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -433,7 +433,7 @@ namespace DisenoEscritorio
         /// <param name="sender">Object that activated the event</param>
         /// <param name="e">Data related to the event</param>
         private void Perfil_Activated(object sender, EventArgs e)
-        {
+        { 
             RecargarDatos();
         }
     }
