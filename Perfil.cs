@@ -33,7 +33,7 @@ namespace DisenoEscritorio
         public Perfil(string usuario)
         {
             InitializeComponent();
-            this.cbCategoria.SelectedIndex = 3;
+            this.cbCategoria.SelectedIndex = 2;
             client = new HttpClient();
             nombreUsuarioActual = usuario;
             CargarSesion();
@@ -179,12 +179,14 @@ namespace DisenoEscritorio
                 this.btnSeguir.Visible = false;
                 this.txtPublicar.Visible = true;
                 this.btnPublicar.Visible = true;
+                this.cbCategoria.Visible = true;
             }
             else {
                 this.btnEditar.Visible = false;
                 this.btnSeguir.Visible = true;
                 this.txtPublicar.Visible = false;
                 this.btnPublicar.Visible = false;
+                this.cbCategoria.Visible = false;
             }
         }
 
@@ -327,7 +329,7 @@ namespace DisenoEscritorio
                 Post p = new Post();
                 p.Usuario = usuarioLogeado.Nombre;
                 p.Texto = this.txtPublicar.Text;
-                p.IdCategoria = cbCategoria.SelectedIndex;
+                p.IdCategoria = cbCategoria.SelectedIndex+1;
                 await Postear(p);
                 await CargarPosts();
             }

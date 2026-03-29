@@ -159,6 +159,7 @@
             this.Controls.Add(this.lblUsuario);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtDescripcion);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditarPerfil";
             this.Text = "Editar perfil";

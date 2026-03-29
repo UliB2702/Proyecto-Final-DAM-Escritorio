@@ -29,6 +29,7 @@ namespace DisenoEscritorio
         {
             InitializeComponent();
             client = new HttpClient();
+            cbCategoria.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -94,7 +95,16 @@ namespace DisenoEscritorio
             try
             {
                 List<Post> posts;
-                string url = "http://localhost:8080/apirest_placegiver/rest/posts";
+                string url = "";
+                if (cbCategoria.SelectedIndex == 0)
+                {
+                    url = "http://localhost:8080/apirest_placegiver/rest/posts";
+                }
+                else
+                {
+                    url = "http://localhost:8080/apirest_placegiver/rest/posts/categoria?categoria=" + cbCategoria.SelectedIndex;
+                }
+                    
                 client = new HttpClient();
                 HttpResponseMessage response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
@@ -260,7 +270,7 @@ namespace DisenoEscritorio
 
                 }
                 await CargarPosts();
-                CargarSesion();
+                await CargarSesion();
             }
         }
 
@@ -355,6 +365,17 @@ namespace DisenoEscritorio
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Reloads the feed depending on what category was selected in the cbCategoria 
+        /// </summary>
+        /// <param name="sender">Object that activated the event</param>
+        /// <param name="e">Data related to the event</param>
+        private async void cbCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            await CargarPosts();
+            await CargarSesion();
         }
     }
 }

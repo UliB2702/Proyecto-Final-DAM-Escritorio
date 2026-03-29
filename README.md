@@ -34,4 +34,8 @@ Funcion de crear usuario testeada y con varias verificaciones. A su vez, mejore 
 
 ## 28 de Marzo
 
-Documentación añadida para todas las clases en ingles, añadiendo tambien la base de datos y la api en el mismo repositoriog
+Documentación añadida para todas las clases en ingles, añadiendo tambien la base de datos y la api en el mismo repositorio.
+
+## 29 de Marzo
+
+Pude añadir la funcion de crear post bajo una categoria y filtrar la feed principal por post de una categoria especifica

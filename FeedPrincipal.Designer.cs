@@ -35,12 +35,15 @@
             this.lblIniciarSesion = new System.Windows.Forms.Label();
             this.lblCrearCuenta = new System.Windows.Forms.Label();
             this.lblCerrarSesion = new System.Windows.Forms.Label();
+            this.cbCategoria = new System.Windows.Forms.ComboBox();
+            this.lblCategoria = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbFotoPerfil)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlPosts
             // 
             this.pnlPosts.AutoScroll = true;
+            this.pnlPosts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlPosts.Location = new System.Drawing.Point(192, 86);
             this.pnlPosts.Name = "pnlPosts";
             this.pnlPosts.Size = new System.Drawing.Size(405, 363);
@@ -108,18 +111,46 @@
             this.lblCerrarSesion.MouseEnter += new System.EventHandler(this.lblCerrarSesion_MouseEnter);
             this.lblCerrarSesion.MouseLeave += new System.EventHandler(this.lbl_MouseLeave);
             // 
+            // cbCategoria
+            // 
+            this.cbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategoria.FormattingEnabled = true;
+            this.cbCategoria.Items.AddRange(new object[] {
+            "(Todos los posts)",
+            "Desarrollo",
+            "Propuestas de Trabajo",
+            "Preguntas Generales"});
+            this.cbCategoria.Location = new System.Drawing.Point(192, 60);
+            this.cbCategoria.Name = "cbCategoria";
+            this.cbCategoria.Size = new System.Drawing.Size(405, 21);
+            this.cbCategoria.TabIndex = 11;
+            this.cbCategoria.SelectedIndexChanged += new System.EventHandler(this.cbCategoria_SelectedIndexChanged);
+            // 
+            // lblCategoria
+            // 
+            this.lblCategoria.AutoSize = true;
+            this.lblCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCategoria.Location = new System.Drawing.Point(189, 41);
+            this.lblCategoria.Name = "lblCategoria";
+            this.lblCategoria.Size = new System.Drawing.Size(79, 16);
+            this.lblCategoria.TabIndex = 12;
+            this.lblCategoria.Text = "Categoria:";
+            // 
             // FeedPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(235)))), ((int)(((byte)(215)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblCategoria);
+            this.Controls.Add(this.cbCategoria);
             this.Controls.Add(this.lblCerrarSesion);
             this.Controls.Add(this.lblCrearCuenta);
             this.Controls.Add(this.lblIniciarSesion);
             this.Controls.Add(this.lblUsuario);
             this.Controls.Add(this.pbFotoPerfil);
             this.Controls.Add(this.pnlPosts);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FeedPrincipal";
             this.Text = "Placegiver";
@@ -139,5 +170,7 @@
         private System.Windows.Forms.Label lblIniciarSesion;
         private System.Windows.Forms.Label lblCrearCuenta;
         private System.Windows.Forms.Label lblCerrarSesion;
+        private System.Windows.Forms.ComboBox cbCategoria;
+        private System.Windows.Forms.Label lblCategoria;
     }
 }

@@ -37,7 +37,11 @@ public class GestionaUsuario {
     }
 }
 
-    
+    /**
+     * It searches for a user using a name sent as a query param
+     * @param nombre Name of the user that wants to be searched
+     * @return The user data if the search was successful or an Error Response if there was any problems with it
+     */
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getUsuario(@QueryParam("nombre") String nombre) {
@@ -66,7 +70,12 @@ public class GestionaUsuario {
     }
     
     
-    
+    /**
+     * It confirms if there is a user with a certain name and password in the database
+     * @param nombre Name of the user for the search
+     * @param password Password of the user for the search
+     * @return Returns an Ok or Error response in case the search was successful or not
+     */
     @GET
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
@@ -92,6 +101,11 @@ public class GestionaUsuario {
         }
     }
 
+    /**
+     * Creates a user in the database based on the data sent as a param
+     * @param u Data of the user that wants to be created
+     * @return Returns an Ok or Error response in case the Insert was correct or not
+     */
     @POST
     @Path("/registro")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -121,6 +135,11 @@ public class GestionaUsuario {
         }
     }
     
+    /**
+     * Updates an user's data based on what is sent as a param
+     * @param u Data of the user that wants to be updated
+     * @return Returns an Ok or Error response in case the Update was correct or not
+     */
     @PUT
     @Path("/actualizar")
     @Consumes(MediaType.APPLICATION_JSON)

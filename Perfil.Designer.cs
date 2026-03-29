@@ -150,7 +150,7 @@
             // 
             // cbCategoria
             // 
-            this.cbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.cbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCategoria.FormattingEnabled = true;
             this.cbCategoria.Items.AddRange(new object[] {
             "Desarrollo",
@@ -158,7 +158,7 @@
             "Preguntas Generales"});
             this.cbCategoria.Location = new System.Drawing.Point(176, 375);
             this.cbCategoria.Name = "cbCategoria";
-            this.cbCategoria.Size = new System.Drawing.Size(464, 20);
+            this.cbCategoria.Size = new System.Drawing.Size(464, 21);
             this.cbCategoria.TabIndex = 10;
             // 
             // Perfil
@@ -179,6 +179,7 @@
             this.Controls.Add(this.lblDescripcion);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.pbFotoPerfil);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Perfil";
             this.Text = "Perfil";
